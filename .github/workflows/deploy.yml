@@ -22,7 +22,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./Website/public/
-        server-dir: /knuffelkunst.innerconfidence.nl/public/
+        server-dir: /public/
         exclude: |
           **/clockwork_logs/**
           **/vendor/**
