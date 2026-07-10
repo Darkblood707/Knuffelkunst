@@ -11,13 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600&display=swap"
         rel="stylesheet">
     <style>
-        /* Color Palette Base 
-           Cream background: #fdfaf6
-           Text dark: #3d2f2b
-           Teal accent: #467c7d
-           Red accent: #b14b3d
-           Orange/Gold accent: #d48f48
-        */
+        /* Color Palette Base */
         :root {
             --bg-cream: #fdfaf6;
             --text-dark: #3d2f2b;
@@ -108,7 +102,7 @@
             margin: 0 auto 30px;
         }
 
-        /* Core Values (Icons) */
+        /* Core Values */
         .core-values {
             display: flex;
             justify-content: space-around;
@@ -150,7 +144,6 @@
         /* Text Sections */
         .text-section {
             padding: 0 0 30px;
-            /* Adjusted to allow cards to bleed to edge */
         }
 
         .text-section h2 {
@@ -168,13 +161,17 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             gap: 15px;
-            padding: 0 25px 15px;
-            /* Side padding so first card aligns */
-            /* Hide scrollbar */
+            padding: 0 25px 5px;
             scrollbar-width: none;
             -ms-overflow-style: none;
             align-items: stretch;
-            /* This forces all cards to be the exact same height */
+            cursor: grab;
+            /* Shows the grab hand for desktop users */
+        }
+
+        .carousel-container:active {
+            cursor: grabbing;
+            /* Shows a closed fist when dragging */
         }
 
         .carousel-container::-webkit-scrollbar {
@@ -183,13 +180,14 @@
 
         .carousel-card {
             flex: 0 0 85%;
-            /* Shows 85% of the card, revealing the edge of the next one */
             scroll-snap-align: center;
             background-color: var(--card-bg);
             padding: 20px;
             border-radius: 15px;
             display: flex;
             flex-direction: column;
+            user-select: none;
+            /* Prevents text highlighting while dragging */
         }
 
         .carousel-card h3 {
@@ -205,12 +203,30 @@
             text-align: justify;
         }
 
-        .swipe-hint {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--accent-teal);
-            margin: 5px 0 0 0;
-            opacity: 0.7;
+        /* Pagination Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(70, 124, 125, 0.3);
+            /* Muted Teal */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .dot.active {
+            background-color: var(--accent-teal);
+            /* Solid Teal */
+            transform: scale(1.2);
+            /* Makes the active dot slightly larger */
         }
 
         /* Facilitators Section */
@@ -344,6 +360,7 @@
 
     <div class="mobile-container">
 
+        <!-- Header -->
         <header class="hero">
             <svg class="logo-placeholder" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -364,6 +381,7 @@
             <p class="sub-tagline">Een veilige plek voor echte verbinding. Met aandacht.</p>
         </header>
 
+        <!-- Core Values -->
         <div class="core-values">
             <div class="value-item">
                 <div class="value-icon">
@@ -396,10 +414,11 @@
 
         <hr class="section-break">
 
+        <!-- About Text Section (Carousel) -->
         <section class="text-section">
             <h2>Over dit evenement</h2>
 
-            <div class="carousel-container">
+            <div class="carousel-container" id="carousel">
                 <div class="carousel-card">
                     <h3>“Mag ik je een knuffel geven?”</h3>
                     <p>Welkom bij de kunst van het knuffelen! Een avondvullende workshop waarin je leert om vanuit je
@@ -432,9 +451,16 @@
                 </div>
             </div>
 
-            <p class="swipe-hint">← Swipe voor meer →</p>
+            <!-- Clickable Pagination Dots -->
+            <div class="carousel-dots">
+                <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+                <button class="dot" data-index="1" aria-label="Slide 2"></button>
+                <button class="dot" data-index="2" aria-label="Slide 3"></button>
+                <button class="dot" data-index="3" aria-label="Slide 4"></button>
+            </div>
         </section>
 
+        <!-- Facilitators -->
         <section class="facilitators">
             <h2>Facilitator</h2>
 
@@ -459,6 +485,7 @@
             </div>
         </section>
 
+        <!-- Details -->
         <section class="details">
             <h2>Details / Tickets</h2>
             <div class="details-grid">
@@ -510,6 +537,7 @@
             </div>
         </section>
 
+        <!-- Footer -->
         <footer class="footer">
             <h2>Voorwaarden & Annulering</h2>
             <p>Door een ticket te kopen ga je akkoord met ons annuleringsbeleid: Annulering tot 7 dagen voor het event:
@@ -520,6 +548,83 @@
 
     </div>
 
+    <!-- Script for Carousel Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('carousel');
+            const cards = carousel.querySelectorAll('.carousel-card');
+            const dots = document.querySelectorAll('.dot');
+
+            // 1. Make dots clickable to scroll to specific cards
+            dots.forEach((dot) => {
+                dot.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    const targetCard = cards[index];
+
+                    // Smoothly scroll the container to the targeted card
+                    carousel.scrollTo({
+                        left: targetCard.offsetLeft - carousel.offsetLeft,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // 2. Automatically light up the correct dot when scrolling/swiping
+            const observerOptions = {
+                root: carousel,
+                threshold: 0.6 // Card is considered "active" when 60% of it is visible
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Find which card is intersecting
+                        const cardArray = Array.from(cards);
+                        const activeIndex = cardArray.indexOf(entry.target);
+
+                        // Update dots
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        if (dots[activeIndex]) {
+                            dots[activeIndex].classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => observer.observe(card));
+
+            // 3. Enable Click and Drag for Mouse Users
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                // Temporarily disable CSS scroll snapping while dragging for a smoother feel
+                carousel.style.scrollSnapType = 'none';
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.scrollSnapType = 'x mandatory';
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.scrollSnapType = 'x mandatory';
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 1.5; // Drag speed multiplier
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
 </body>
 
 </html>
