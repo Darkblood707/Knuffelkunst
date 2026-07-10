@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knuffelkunst - Warmte. Verbinding. Zijn.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 
+           Color Palette Base 
+           Cream background: #fdfaf6
+           Text dark: #3d2f2b
+           Teal accent: #467c7d
+           Red accent: #b14b3d
+           Orange/Gold accent: #d48f48
+        */
+        :root {
+            --bg-cream: #fdfaf6;
+            --text-dark: #3d2f2b;
+            --accent-teal: #467c7d;
+            --accent-red: #b14b3d;
+            --accent-gold: #c38c56;
+            --card-bg: #f5eedf;
+            --font-heading: 'Lora', serif;
+            --font-body: 'Nunito', sans-serif;
+            --font-script: 'Dancing Script', cursive;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #333; /* Dark background for desktop to frame the mobile view */
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Mobile Container (forces 9:16 aspect ratio look on desktop) */
+        .mobile-container {
+            width: 100%;
+            max-width: 414px; /* Approx mobile width */
+            background-color: var(--bg-cream);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow-x: hidden;
+        }
+
+        /* Header / Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: auto;
+            margin: 0 auto 15px;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            color: var(--accent-gold);
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            height: 1px;
+            width: 40px;
+            background-color: var(--accent-gold);
+            opacity: 0.5;
+        }
+
+        .tagline {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .sub-tagline {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            max-width: 250px;
+            margin: 0 auto 30px;
+        }
+
+        /* Core Values (Icons) */
+        .core-values {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 10px 30px;
+        }
+
+        .value-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .value-icon {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: var(--accent-gold);
+        }
+
+        .value-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        hr.section-break {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(195, 140, 86, 0.3), transparent);
+            margin: 10px 0 30px;
+        }
+
+        /* Text Sections */
+        .text-section {
+            padding: 0 25px 30px;
+        }
+
+        .text-section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .text-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--accent-red);
+        }
+
+        .text-section p {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* Facilitators Section */
+        .facilitators {
+            padding: 20px 25px 30px;
+            background-color: var(--card-bg);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .facilitators h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .facilitator-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        /* Colored backgrounds for avatars to match brand */
+        .avatar-jules { background-color: var(--accent-red); }
+        .avatar-safira { background-color: var(--accent-gold); }
+
+        .facilitator-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .facilitator-info p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Details & Tickets Section */
+        .details {
+            background-color: var(--accent-red);
+            color: white;
+            padding: 30px 25px;
+        }
+
+        .details h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .detail-icon {
+            width: 20px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            fill: white;
+        }
+
+        .detail-text h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .detail-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        /* Footer / Conditions */
+        .footer {
+            background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-teal) 100%);
+            color: white;
+            padding: 40px 25px;
+            text-align: center;
+        }
+
+        .footer h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        
+        <!-- Header -->
+        <header class="hero">
+            <!-- Inline SVG for the Lotus/Hands Logo based on brand colors -->
+            <svg class="logo-placeholder" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 70 C30 70, 15 55, 15 35 C15 20, 25 10, 35 15 C45 20, 50 35, 50 35 C50 35, 55 20, 65 15 C75 10, 85 20, 85 35 C85 55, 70 70, 50 70 Z" fill="#467c7d"/>
+                <path d="M50 65 C35 65, 20 50, 20 35 C20 25, 28 15, 38 20 C46 24, 50 38, 50 38 C50 38, 54 24, 62 20 C72 15, 80 25, 80 35 C80 50, 65 65, 50 65 Z" fill="#b14b3d"/>
+                <path d="M50 60 C40 60, 25 45, 25 35 C25 28, 30 20, 40 25 C47 28, 50 42, 50 42 C50 42, 53 28, 60 25 C70 20, 75 28, 75 35 C75 45, 60 60, 50 60 Z" fill="#d48f48"/>
+                <path d="M50 50 C45 40, 45 30, 50 25 C55 30, 55 40, 50 50 Z" fill="#fdfaf6"/>
+            </svg>
+
+            <h1>Knuffelkunst</h1>
+            <div class="divider">♡</div>
+            <p class="tagline">Warmte. Verbinding. Zijn.</p>
+            <p class="sub-tagline">Een veilige plek voor echte verbinding. Met aandacht.</p>
+        </header>
+
+        <!-- Core Values -->
+        <div class="core-values">
+            <div class="value-item">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+                <span>Verbinding</span>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3-5a4 4 0 0 1 6 0H9zM12 7a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+                </div>
+                <span>Ontwikkeling</span>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                </div>
+                <span>Afstemming</span>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- About Text Section -->
+        <section class="text-section">
+            <h2>Over dit evenement</h2>
+            
+            <h3>“Mag ik je een knuffel geven?”</h3>
+            <p>Welkom bij de kunst van het knuffelen! Een avondvullende workshop waarin je leert om vanuit je verlangens zuiver te verbinden met jezelf en de ander. We nodigen je uit tot vertraging en verstilling.</p>
+            
+            <p>Met simpele oefeningen gaan we in een geleide opbouw richting het knuffelen, waarbij je oefent met het voelen van jouw grenzen en wensen. Altijd in een platonische setting. Je innerlijke proces is leidend, iedere uitwisseling uniek. Kun je de avond instappen vanuit nieuwsgierigheid? Fijne stofjes gegarandeerd!</p>
+
+            <h3>Ervaring</h3>
+            <p>Voor deze workshop heb je geen ervaring nodig. Het is wel belangrijk dat je kunt afstemmen op je eigen grenzen en behoeftes. Én die van de ander. Onze spaceholders zijn er om je op te vangen als er iets geraakt wordt. Samen creëren we een comfortabele en speelse omgeving waarin je kunt oefenen met je verlangens en grenzen.</p>
+
+            <h3>Over de organisatie</h3>
+            <p>Knuffelkunst biedt speelse en diepgaande workshops gericht op verbinding en zelfbewustzijn. Wat gebeurt er als je helemaal mag voelen wat er op dit moment in jou leeft? Wat je verlangens zijn? En je grenzen? Oefenen met jouw "ja" en "nee" in een veilige, afgestemde omgeving kan ervoor zorgen dat je jezelf mag ontwikkelen op een diepere laag.</p>
+        </section>
+
+        <!-- Facilitators -->
+        <section class="facilitators">
+            <h2>Facilitator</h2>
+            
+            <div class="facilitator-card">
+                <div class="avatar avatar-jules">J</div>
+                <div class="facilitator-info">
+                    <h3>Jules</h3>
+                    <p>Heeft een coachpraktijk, achtergrond in NLP, teamcoaching en traumatherapie. Organiseert workshops voor mannencirkels en meditatie. Veiligheid, gegrondheid en speelsheid zijn zijn sleutelwoorden.</p>
+                </div>
+            </div>
+
+            <div class="facilitator-card">
+                <div class="avatar avatar-safira">S</div>
+                <div class="facilitator-info">
+                    <h3>Safira</h3>
+                    <p>Heeft een meerjarige opleiding tot coach en yoga-docent afgerond met bijscholingen in lichaamsgericht en trauma-sensitieve begeleiding. Diepgang, humor en veiligheid staan bij haar centraal.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Details -->
+        <section class="details">
+            <h2>Details / Tickets</h2>
+            <div class="details-grid">
+                
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8zm0 2c-5.5 0-10-4.5-10-10S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10zm1-10.4V7h-2v6l5.2 3.2 1-1.6-4.2-2.6z"/></svg>
+                    <div class="detail-text">
+                        <h4>Tijd</h4>
+                        <p>19.00 Deuren open<br>19.30 Start<br>22.30 Afronding</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <div class="detail-text">
+                        <h4>Locatie</h4>
+                        <p>Copacabana, Salon voor de levenskunsten,<br>Overakkerstraat 190, Breda</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10-2h4v2h-4V4zm10 16H4V8h16v12z"/></svg>
+                    <div class="detail-text">
+                        <h4>Kleding</h4>
+                        <p>Comfortabel<br>(neem evt. iets warms mee en een afsluitbaar drinkflesje)</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c-.96 1.66-2.49 2.93-4.33 3.56C6.15 10.45 6.61 9.25 6.93 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                    <div class="detail-text">
+                        <h4>Taal & Leeftijd</h4>
+                        <p>Nederlands<br>Leeftijd: 18-99 jaar</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h2>Voorwaarden & Annulering</h2>
+            <p>Door een ticket te kopen ga je akkoord met ons annuleringsbeleid: Annulering tot 7 dagen voor het event: je krijgt het volledige aankoopbedrag terug. Annulering binnen 7 dagen tot het event: je bent het volledige aankoopbedrag verschuldigd. Je mag je ticket altijd doorverkopen (geef ons dan de naam van de koper door), of vragen of er iemand op de wachtlijst staat.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
