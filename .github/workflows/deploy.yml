@@ -1,0 +1,28 @@
+name: Deploy Website to Knuffelkunst Subdomain
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: Execute Knuffelkunst Sync
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch Latest Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Sync Website Folder Only
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./Website/  
+        server-dir: /knuffelkunst.innerconfidence.nl/public/
+        exclude: |
+          **/clockwork_logs/**
+          **/vendor/**
